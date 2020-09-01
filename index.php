@@ -22,18 +22,18 @@
                 $.each(data, function (index, element) {
                     console.log(element.link)
                     template +=
-                        "<div class=\"row mb-5 mt-5\">\n" +
-                        "            <div class=\"col col-md-6 col-lg-6 col-md-offset-4\">\n" +
+                        "<div class=\"row mb-5 mt-5\"><div class=\"col col-md-4 col-lg-4\"><p>"+element.title.rendered+"<p></div>\n" +
+                        "            <div class=\"col col-md-3 col-lg-3 col-md-offset-3\">\n" +
                         "                <input type=\"text\" class=\"form-control link\"  placeholder=\"Enter link\" value='" + element.link + "'>\n" +
-                        "            </div>\n" +
+                        "            </div>\n"  +
                         "            <div class=\"col col-md-2 col-lg-2\">\n" +
                         "                <input type=\"number\" class=\"form-control count\" placeholder=\"count\">\n" +
                         "            </div>\n" +
-                        "            <div class=\"col col-md-4 col-lg-4\">\n" +
+                        "            <div class=\"col col-md-3 col-lg-3\">\n" +
                         "                <button id=\"open\" class=\"btn btn-success btn-block open-link\">Open Link </button>\n" +
                         "            </div>\n" +
                         "        </div>"
-
+                      $(template).insertBefore('')
                 })
                 $("#area").append(template)
             }
