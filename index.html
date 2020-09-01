@@ -6,33 +6,49 @@
 </head>
 
 <body>
-    <div class="container text-center">
-        <div class="row mb-5 mt-5">
-            <div class="col col-md-6 col-lg-6 col-md-offset-4">
-                <input type="text" class="form-control" id="link" placeholder="Enter link">
-            </div>
-            <div class="col col-md-2 col-lg-2">
-                <input type="number" class="form-control" id="count" placeholder="count">
-            </div>
+    <div class="container text-center " id="area">
 
-        </div>
-        <div class="row mt-5">
-            <div class="col col-md-6 col-lg-6">
-                <button id="open" class="btn btn-success btn-block">Open Link </button>
-            </div>
-        </div>
     </div>
 </body>
 <script>
 
     $(document).ready(function () {
-        $("#open").on('click', function () {
-        let link=$("#link").val();
-        let count=$("#count").val();
-        console.log(count)
-        for(let i=0;i<count;i++){
-           window.open(link)
-        }
+        $.ajax({
+            url: 'https://onbir.az/wp-json/wp/v2/posts',
+            type: "GET",
+            dataType: "json",
+            success: function (data) {
+                var template = ""
+                $.each(data, function (index, element) {
+                    console.log(element.link)
+                    template +=
+                        "<div class=\"row mb-5 mt-5\">\n" +
+                        "            <div class=\"col col-md-6 col-lg-6 col-md-offset-4\">\n" +
+                        "                <input type=\"text\" class=\"form-control link\"  placeholder=\"Enter link\" value='" + element.link + "'>\n" +
+                        "            </div>\n" +
+                        "            <div class=\"col col-md-2 col-lg-2\">\n" +
+                        "                <input type=\"number\" class=\"form-control count\" placeholder=\"count\">\n" +
+                        "            </div>\n" +
+                        "            <div class=\"col col-md-4 col-lg-4\">\n" +
+                        "                <button id=\"open\" class=\"btn btn-success btn-block open-link\">Open Link </button>\n" +
+                        "            </div>\n" +
+                        "        </div>"
+
+                })
+                $("#area").append(template)
+            }
+        });
+    })
+    $(function(){
+        $(document).on('click','.open-link', function () {
+            console.log($(this).parent())
+
+            let link = $(this).parent().parent().find("input.link").val();
+            let count = $(this).parent().parent().find("input.count").val();
+            console.log(count)
+            for (let i = 0; i < count; i++) {
+                window.open(link)
+            }
         })
     })
 </script>
